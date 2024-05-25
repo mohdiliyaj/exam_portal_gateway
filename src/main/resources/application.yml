@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      routes:
+      - id: login-api
+        uri: lb://LOGIN-MODULE
+        predicates:
+        - Path=/auth/*
+      - id: admin-api
+        uri: lb://ADMIN-MODULE
+        predicates:
+        - Path=/admin/**
+      - id: student-api
+        uri: lb://STUDENT-MODULE
+        predicates:
+        - Path=/student/**
+        
+server:
+  port: 3333
+  
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
